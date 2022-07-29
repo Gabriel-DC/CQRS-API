@@ -25,7 +25,6 @@ namespace CqrsApi.Domain.Context.Entities
             _deliveries = new List<Delivery>();
         }
         
-
         public Customer Customer { get; private set; }
         public string Number { get; private set; }
         public DateTime Createdate { get; private set; }
@@ -62,10 +61,8 @@ namespace CqrsApi.Domain.Context.Entities
         public void Pay(decimal amount)
         {
             if (ValidatePayment(amount).IsValid)
-                Status = EOrderStatus.Paid;            
-
-            //Status = EOrderStatus.Paid;
-        }        
+                Status = EOrderStatus.Paid;
+        }
 
         public void Ship()
         {
@@ -96,8 +93,7 @@ namespace CqrsApi.Domain.Context.Entities
         public decimal TotalValue() => _items.Sum(x => x.Price);
 
         public ValidationResult ValidatePayment(decimal payment)
-            => new OrderValidator(payment).Validate(this, options => options.IncludeRuleSets("Payment"));
-        
+            => new OrderValidator(payment).Validate(this, options => options.IncludeRuleSets("Payment"));        
 
         public class OrderValidator : AbstractValidator<Order>
         {

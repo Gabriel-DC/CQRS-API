@@ -20,7 +20,7 @@ public class UnitTest1
         validator.RuleFor(r => number).GreaterThan(5).WithMessage("Rule A");
 
         validator.RuleSet("Generic", () =>
-        {            
+        {
             validator.RuleFor(x => number).GreaterThanOrEqualTo(10).WithMessage("Rule B");
         });
 

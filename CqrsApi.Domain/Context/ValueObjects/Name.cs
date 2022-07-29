@@ -27,14 +27,18 @@ namespace CqrsApi.Domain.Context.ValueObjects
                 RuleFor(x => x.FirstName)
                     .NotEmpty()
                     .WithMessage("Nome inválido")
-                    .Length(3, 100)
-                    .WithName("Nome deve conter entre 3 e 100 caracteres");
+                    .MinimumLength(3)
+                    .WithMessage("Nome deve conter no mínimo 3 caracteres")
+                    .MaximumLength(100)
+                    .WithName("Nome deve conter no máximo 100 caracteres");
                 
                 RuleFor(x => x.LastName)
                     .NotEmpty()
                     .WithMessage("Sobrenome inválido")
-                    .Length(3, 100)
-                    .WithName("Sobrenome deve conter entre 3 e 100 caracteres");
+                    .MinimumLength(3)
+                    .WithMessage("Sobrenome deve conter no mínimo 3 caracteres")
+                    .MaximumLength(100)
+                    .WithName("Sobrenome deve conter no máximo 100 caracteres");
             }
         }
     }

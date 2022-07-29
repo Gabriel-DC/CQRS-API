@@ -18,13 +18,21 @@ namespace CqrsApi.Domain.Context.Entities.Generic
         {
             if (typeof(object) != typeof(TypeValidator))
                 _validator = new TypeValidator();
-
-            Notifications = new ValidationResult();
+            
+            ValidationResult = new ValidationResult();
         }
 
-        protected ValidationResult Notifications { get; set; }
+        //Adiciona notificacao em validationresult
+        public void AddNotification(string propertyName, string errorMessage)
+        {
+            ValidationResult.Errors.Add(new ValidationFailure(propertyName, errorMessage));
+        }
 
-        public bool IsValid => Notifications.IsValid;
+        private ValidationResult ValidationResult { get; set; }
+
+        public IReadOnlyCollection<ValidationFailure> Notifications => ValidationResult.Errors;
+
+        public bool IsValid => ValidationResult.IsValid;
 
         public ValidationResult Validate()
         {
@@ -35,16 +43,16 @@ namespace CqrsApi.Domain.Context.Entities.Generic
                 .FirstOrDefault(m => m.Name == "Validate");
 
             if (myMethod is not null && _validator is not null)
-                Notifications = (ValidationResult)myMethod.Invoke(_validator, new object[] { this })!;
+                ValidationResult = (ValidationResult)myMethod.Invoke(_validator, new object[] { this })!;
             else
-                Notifications = new ValidationResult();
+                ValidationResult = new ValidationResult();
 
-            return Notifications;
+            return ValidationResult;
         }
 
         public void ClearNotifications()
         {
-            Notifications = new ValidationResult();
+            ValidationResult = new ValidationResult();
         }
     }
 }
