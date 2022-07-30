@@ -30,7 +30,7 @@ namespace CqrsApi.Domain.Context.ValueObjects
                     .MinimumLength(3)
                     .WithMessage("Nome deve conter no mínimo 3 caracteres")
                     .MaximumLength(100)
-                    .WithName("Nome deve conter no máximo 100 caracteres");
+                    .WithName("Nome deve conter no máximo 100 caracteres");                
                 
                 RuleFor(x => x.LastName)
                     .NotEmpty()

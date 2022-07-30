@@ -14,6 +14,8 @@ namespace CqrsApi.Domain.Context.Entities
             Product = product;
             Quantity = quantity;
             Price = product?.Price ?? 0;
+
+            Validate();
         }
 
         public Product Product { get; private set; }
@@ -35,7 +37,8 @@ namespace CqrsApi.Domain.Context.Entities
             
             RuleFor(e => e.Product)
                 .NotNull()
-                .WithMessage("Produto obrigatório");
+                .WithMessage("Produto obrigatório")
+                .SetValidator(new Product.ProductValidator());
 
             When(e => e.Product != null, () =>
             {

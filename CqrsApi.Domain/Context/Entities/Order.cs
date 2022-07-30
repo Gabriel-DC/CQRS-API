@@ -23,6 +23,8 @@ namespace CqrsApi.Domain.Context.Entities
             Status = EOrderStatus.Created;
             _items = new List<OrderItem>();
             _deliveries = new List<Delivery>();
+
+            Validate();
         }
         
         public Customer Customer { get; private set; }
@@ -42,7 +44,6 @@ namespace CqrsApi.Domain.Context.Entities
         public void AddItem(Product product, decimal quantity)
         {
             var item = new OrderItem(product, quantity);
-            item.Validate();
             _items.Add(item);
         }
 
@@ -54,7 +55,6 @@ namespace CqrsApi.Domain.Context.Entities
         public void Place()
         {
             Number = Guid.NewGuid().ToString("N")[..8].ToUpper();
-
             Validate();
         }
 
@@ -103,6 +103,11 @@ namespace CqrsApi.Domain.Context.Entities
                     .NotEmpty()
                     .WithMessage("O pedido não possui itens")
                     .ForEach(c => c.SetValidator(new OrderItemValidator()));
+
+                RuleFor(r => r.Customer)
+                    .NotNull()
+                    .WithMessage("Cliente inválido")
+                    .SetValidator(new Customer.CustomerValidator());
             }
 
             public OrderValidator(decimal amount)
