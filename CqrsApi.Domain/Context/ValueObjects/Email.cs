@@ -30,6 +30,6 @@ namespace CqrsApi.Domain.Context.ValueObjects
                     .EmailAddress()
                     .WithMessage("Email inválido");
             }
-        }
+        }    
     }
 }

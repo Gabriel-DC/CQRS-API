@@ -55,7 +55,6 @@ namespace CqrsApi.Domain.Context.Entities
         public void Place()
         {
             Number = Guid.NewGuid().ToString("N")[..8].ToUpper();
-            Validate();
         }
 
         public void Pay(decimal amount)
