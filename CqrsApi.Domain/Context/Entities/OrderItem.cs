@@ -15,6 +15,8 @@ namespace CqrsApi.Domain.Context.Entities
             Quantity = quantity;
             Price = product?.Price ?? 0;
 
+            product?.DecreaseQuantity(quantity);
+
             Validate();
         }
 

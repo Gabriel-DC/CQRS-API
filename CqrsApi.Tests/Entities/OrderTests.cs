@@ -302,6 +302,80 @@ namespace CqrsApi.Tests.Entities
 
             order.Place();
             Assert.IsNotNull(order.Number);
-        }        
+        }
+
+        [TestMethod]
+        [TestCategory("Domain")]
+        public void ShouldBeAbleToAddAValidItemToOrder()
+        {
+            var order = new Order(
+                    new Customer(
+                        new Name("John", "Doe"),
+                        new Document("76772258029"),
+                        new Email("gabriel@gabriel.com"),
+                        "123456789"
+                    )
+                );
+
+            order.AddItem(new Product("Produto 01", "Um produto", "image.png", 10m, 100), 10);
+
+            Assert.AreEqual(1, order.GetItems().Count);
+        }
+
+        [TestMethod]
+        [TestCategory("Domain")]
+        public void ShouldBeAbleToAddAValidDeliveryToOrder()
+        {
+            var order = new Order(
+                    new Customer(
+                        new Name("John", "Doe"),
+                        new Document("76772258029"),
+                        new Email("gabriel@gabriel.com"),
+                        "123456789"
+                    )
+                );
+
+            order.AddDelivery(new Delivery(DateTime.Now.AddDays(5)));            
+
+            Assert.AreEqual(1, order.GetDeliveries().Count);
+        }
+
+        [TestMethod]
+        [TestCategory("Domain")]
+        public void ShouldHasNoNumberBeforeOrderIsPlaced()
+        {
+            var order = new Order(
+                    new Customer(
+                        new Name("John", "Doe"),
+                        new Document("76772258029"),
+                        new Email("gabriel@gabriel.com"),
+                        "123456789"
+                    )
+                );
+
+            var product = new Product("Um produto", "Um produto maneiro","image.png", 10m, 100);
+            order.AddItem(product, 10);
+
+            Assert.IsNull(order.Number);            
+        }
+
+        [TestMethod]
+        [TestCategory("Domain")]
+        public void ShouldDecreaseQuantityOfProductAfterAddOrderItem()
+        {
+            var order = new Order(
+                    new Customer(
+                        new Name("John", "Doe"),
+                        new Document("76772258029"),
+                        new Email("gabriel@gabriel.com"),
+                        "123456789"
+                    )
+                );
+
+            var product = new Product("Um produto", "Um produto maneiro", "image.png", 10m, 100);
+            order.AddItem(product, 10);
+
+            Assert.AreEqual(90, product.QuantityOnHand);
+        }
     }
 }
