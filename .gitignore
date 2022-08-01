@@ -399,3 +399,9 @@ FodyWeavers.xsd
 
 #sonarqube scanner files
 .sonarqube/
+
+#sonarlint files
+.sonarlint/
+
+#scanner batch file
+sonar-scanner.bat

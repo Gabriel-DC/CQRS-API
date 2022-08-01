@@ -11,22 +11,10 @@ using System.Threading.Tasks;
 
 namespace CqrsApi.Domain.Context.Entities.Generic
 {
-    public abstract class EntityValidator<TypeValidator> : IEntity, INotifyPropertyChanged
+    public abstract class EntityValidator<TypeValidator> : IEntity
         where TypeValidator : new()
     {
         private readonly TypeValidator? _validator;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged(PropertyChangedEventArgs e)
-        {            
-            Validate();
-        }
-        
-        protected void OnPropertyChanged(string propertyName)
-        {
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-        }
 
         protected EntityValidator()
         {
