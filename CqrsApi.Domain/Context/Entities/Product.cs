@@ -34,13 +34,7 @@ namespace CqrsApi.Domain.Context.Entities
 
         public override string ToString() => $"{Title}";
 
-        public void DecreaseQuantity(decimal quantity)
-        {
-            //if (QuantityOnHand - quantity < 0)
-            //    throw new InvalidOperationException("Não há quantidade suficiente em estoque");
-
-            QuantityOnHand -= quantity;
-        }
+        public void DecreaseQuantity(decimal quantity) => QuantityOnHand -= quantity;
 
         public class ProductValidator : AbstractValidator<Product>
         {
