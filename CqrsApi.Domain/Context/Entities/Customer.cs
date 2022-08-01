@@ -38,7 +38,7 @@ namespace CqrsApi.Domain.Context.Entities
 
         public void AddAddress(Address address)
         {
-            if (address is not null)            
+            if (address is not null)
                 _addresses.Add(address);
         }
 
