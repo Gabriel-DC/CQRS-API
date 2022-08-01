@@ -46,9 +46,6 @@ namespace CqrsApi.Domain.Context.Entities.Generic
             return ValidationResult;
         }
 
-        public void ClearNotifications()
-        {
-            ValidationResult = new ValidationResult();
-        }
+        public void ClearNotifications() => ValidationResult = new ValidationResult();
     }
 }

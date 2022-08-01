@@ -1,9 +1,5 @@
 using CqrsApi.Domain.Context.Entities.Generic;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using static CqrsApi.Domain.Context.Entities.Product;
 
 namespace CqrsApi.Domain.Context.Entities
