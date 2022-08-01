@@ -1,5 +1,7 @@
 using CqrsApi.Domain.Context.Enums;
+using CqrsApi.Shared.Commands;
 using FluentValidation;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CqrsApi.Domain.Context.Commands.CustomerCommands.Inputs
 {
-    public class CreateAddressCommand
+    public class CreateCustomerAddressCommand : ICommand
     {
         public Guid CustomerId { get; set; }
         public string Street { get; set; }
@@ -19,9 +21,11 @@ namespace CqrsApi.Domain.Context.Commands.CustomerCommands.Inputs
         public string State { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
-        public EAddressType Type { get; set; }
+        public EAddressType Type { get; set; }        
 
-        public class CreateAddressCommandValidator : AbstractValidator<CreateAddressCommand>
+        public ValidationResult Validate() => new CreateAddressCommandValidator().Validate(this);
+
+        public class CreateAddressCommandValidator : AbstractValidator<CreateCustomerAddressCommand>
         {
             public CreateAddressCommandValidator()
             {

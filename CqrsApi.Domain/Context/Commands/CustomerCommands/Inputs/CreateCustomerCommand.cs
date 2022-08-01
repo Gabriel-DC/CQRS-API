@@ -1,4 +1,6 @@
+using CqrsApi.Shared.Commands;
 using FluentValidation;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace CqrsApi.Domain.Context.Commands.CustomerCommands.Inputs
 {
-    public class CreateCustomerCommand
+    public class CreateCustomerCommand : ICommand
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Document { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+
+        public ValidationResult Validate() => new CreateCustomerCommandValidator().Validate(this);
 
         public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
         {
