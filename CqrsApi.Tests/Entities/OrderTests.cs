@@ -335,7 +335,7 @@ namespace CqrsApi.Tests.Entities
                     )
                 );
 
-            order.AddDelivery(new Delivery(DateTime.Now.AddDays(5)));            
+            order.AddDelivery(new Delivery(DateTime.Now.AddDays(5)));
 
             Assert.AreEqual(1, order.GetDeliveries().Count);
         }
@@ -356,7 +356,7 @@ namespace CqrsApi.Tests.Entities
             var product = new Product("Um produto", "Um produto maneiro","image.png", 10m, 100);
             order.AddItem(product, 10);
 
-            Assert.IsNull(order.Number);            
+            Assert.IsNull(order.Number);
         }
 
         [TestMethod]
