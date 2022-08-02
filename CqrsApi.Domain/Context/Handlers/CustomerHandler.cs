@@ -27,8 +27,12 @@ namespace CqrsApi.Domain.Context.Handlers
 
         public ICommandResult Handle(CreateCustomerCommand command)
         {
-            if (_customerRepository.CheckEmailExists(command.Document))
-                throw new InvalidOperationException("Cliente já cadastrado");
+            var validationResult = command?.Validate();
+            if(!(validationResult?.IsValid ?? false))
+                throw new InvalidOperationException(string.Join('\n', validationResult?.Errors?.Select(e => e.ErrorMessage) ?? null!) ?? "Informações inválidas");
+
+            if (_customerRepository.CheckEmailExists(command!.Email))
+                throw new InvalidOperationException("Email já cadastrado");
 
             if (_customerRepository.CheckDocumentExists(command.Document))
                 throw new InvalidOperationException("Documento já cadastrado");
@@ -45,7 +49,7 @@ namespace CqrsApi.Domain.Context.Handlers
             if(_customerRepository.Save(customer))
                 _emailService.Send(customer.Email.ToString(), "Bem-vindo ao CqrsApi", "Sua conta foi criada com sucesso!");
 
-            return new CreateCustomerModel(Guid.NewGuid(), name.ToString(), email.ToString());
+            return new CreateCustomerModel(customer.Id, name.ToString(), email.ToString());
         }
     }
 }
