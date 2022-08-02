@@ -14,6 +14,8 @@ namespace CqrsApi.Domain.Context.Entities.Generic
     public abstract class EntityValidator<TypeValidator> : IEntity
         where TypeValidator : new()
     {
+        public Guid Id { get; private set; }
+
         private readonly TypeValidator? _validator;
 
         protected EntityValidator()
@@ -22,6 +24,7 @@ namespace CqrsApi.Domain.Context.Entities.Generic
                 _validator = new TypeValidator();
 
             ValidationResult = new ValidationResult();
+            Id = Guid.NewGuid();
         }
 
         protected ValidationResult ValidationResult { get; set; }
@@ -46,9 +49,6 @@ namespace CqrsApi.Domain.Context.Entities.Generic
             return ValidationResult;
         }
 
-        public void ClearNotifications()
-        {
-            ValidationResult = new ValidationResult();
-        }
+        public void ClearNotifications() => ValidationResult = new ValidationResult();
     }
 }

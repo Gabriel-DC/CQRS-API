@@ -39,7 +39,7 @@ namespace CqrsApi.Domain.Context.Entities
         public void AddAddress(Address address)
         {
             if (address is not null)
-                _addresses.Add(address);
+                _addresses.Add(address);            
         }
 
         public override string ToString() => Name.ToString();

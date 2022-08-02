@@ -1,3 +1,4 @@
+using CqrsApi.Domain.Context.Entities.Generic;
 using CqrsApi.Domain.Context.Enums;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CqrsApi.Domain.Context.Entities
 {
-    public class Address //: EntityValidator<AddressValidator>
+    public class Address : EntityValidator<object>
     {
         public Address(
             string street,

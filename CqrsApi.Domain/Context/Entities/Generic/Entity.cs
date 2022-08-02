@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace CqrsApi.Domain.Context.Entities.Generic
 {
+    // CLASSE DESCARTADA TEMPORARIAMENTE
     public abstract class Entity<TypeValidator> : GenericValidator<TypeValidator>
         where TypeValidator : new()
     {

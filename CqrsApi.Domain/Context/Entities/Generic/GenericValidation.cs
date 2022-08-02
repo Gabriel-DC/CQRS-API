@@ -13,7 +13,7 @@ namespace CqrsApi.Domain.Context.Entities.Generic
         public GenericValidation()
         {            
         }        
-
+        
         public ValidationResult ValidateRules() => Validate(new object ());
 
         public ValidationResult ValidateRuleSets(params string[] ruleSets)
