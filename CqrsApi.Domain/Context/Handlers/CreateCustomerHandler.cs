@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace CqrsApi.Domain.Context.Handlers
 {
-    public class CustomerHandler : ICommandHandler<CreateCustomerCommand>
+    public class CreateCustomerHandler : ICommandHandler<CreateCustomerCommand>
     {
         private readonly ICustomerRepository _customerRepository;
 
         private readonly IEmailService _emailService;
 
-        public CustomerHandler(ICustomerRepository customerRepository, IEmailService emailService)
+        public CreateCustomerHandler(ICustomerRepository customerRepository, IEmailService emailService)
         {
             _customerRepository = customerRepository;
             _emailService = emailService;
