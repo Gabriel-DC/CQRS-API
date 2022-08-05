@@ -410,4 +410,4 @@ sonar-scanner.bat
 sql/
 
 #Settings for Database
-CqrsApi.Infra/StoreContext/DataContext
+CqrsApi.Infra/StoreContext/DataContext/Settings.cs
