@@ -1,3 +1,4 @@
+using CqrsApi.Domain.Context.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,15 +36,14 @@ namespace CqrsApi.Tests.Repositories
                         "123456789"
                         )
         }.AsQueryable();
-        
-        public bool CheckDocumentExists(string document)
-        {
-            return Customers.Any(c => c.Document.Number == document);
-        }
 
-        public bool CheckEmailExists(string email)
+        public bool CheckDocumentExists(string document) => Customers.Any(c => c.Document.Number == document);
+
+        public bool CheckEmailExists(string email) => Customers.Any(c => c.Email.Address == email);
+
+        public CustomerOrdersCountResult GetCustomerOrdersCount(string document)
         {
-            return Customers.Any(c => c.Email.Address == email);
+            throw new NotImplementedException();
         }
 
         public bool Save(Customer customer)

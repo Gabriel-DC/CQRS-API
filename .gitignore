@@ -405,3 +405,9 @@ FodyWeavers.xsd
 
 #scanner batch file
 sonar-scanner.bat
+
+#SQL bin
+sql/
+
+#Settings for Database
+CqrsApi.Infra/StoreContext/DataContext
