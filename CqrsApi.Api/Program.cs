@@ -9,6 +9,4 @@ if(app.Environment.IsDevelopment())
 
 app.UseMvc();
 
-app.MapGet("/", () => "Hello World!");
-
 app.Run();
