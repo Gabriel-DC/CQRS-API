@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CqrsApi.Domain.Context.Queries
+namespace CqrsApi.Domain.Context.Queries.CustomerQueries.CommonModels
 {
-    public class CustomerOrdersCountResult
+    public class CommonCustomer
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Document { get; set; }
-        public int OrderCount { get; set; }
+        public string Document { get; set; }       
     }
 }

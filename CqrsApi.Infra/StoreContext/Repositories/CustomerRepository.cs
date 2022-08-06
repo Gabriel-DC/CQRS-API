@@ -1,5 +1,5 @@
 using CqrsApi.Domain.Context.Entities;
-using CqrsApi.Domain.Context.Queries;
+using CqrsApi.Domain.Context.Queries.CustomerQueries;
 using CqrsApi.Domain.Context.Repositories;
 using CqrsApi.Infra.StoreContext.DataContext;
 using Dapper;
@@ -33,11 +33,37 @@ namespace CqrsApi.Infra.StoreContext.Repositories
                     new { Email = email },
                     commandType: CommandType.StoredProcedure);
 
+        public void Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IndexCustomersQuery> GetAll() => _context.Connection
+                .Query<IndexCustomersQuery>(
+                    "select id, concat(FirstName, ' ', LastName) as [Name], [Document], [Email] from Customer");
+
+        public GetCustomerQuery GetCustomerByDocument(string document) => _context.Connection
+                .QueryFirstOrDefault<GetCustomerQuery>(
+                        @"select id, concat(FirstName, ' ', LastName) as [Name], [Document], [Email] from Customer c
+where c.Document = @Document",
+                        new { Document = document });
+
+        public GetCustomerQuery GetCustomerById(Guid id) => _context.Connection
+                .QueryFirstOrDefault<GetCustomerQuery>(
+                        @"select id, concat(FirstName, ' ', LastName) as [Name], [Document], [Email] from Customer c
+where c.Id = @Id",
+                        new { Id = id });
+
         public CustomerOrdersCountResult GetCustomerOrdersCount(string document) => _context.Connection
                 .QueryFirstOrDefault<CustomerOrdersCountResult>(
                     "GetCustomerOrdersCount",
                     new { Document = document },
                     commandType: CommandType.StoredProcedure);
+
+        public IEnumerable<IndexCustomerOrdersQuery> GetOrders(Guid id)
+        {
+            throw new NotImplementedException();
+        }
 
         public bool Save(Customer customer)
         {
@@ -45,24 +71,26 @@ namespace CqrsApi.Infra.StoreContext.Repositories
             {
                 using var transaction = _context.Connection.BeginTransaction();
                 var result = _context.Connection.Execute(
-                    @"Insert into Customers (Name, LastName, Document, Email, Phone) 
-                values (@Name, @LastName, @Document, @Email, @Phone)",
+                    @"Insert into Customer (Id, FirstName, LastName, Document, Email, Phone) 
+                values (@Id, @FirstName, @LastName, @Document, @Email, @Phone)",
                     new
                     {
-                        Name = customer.Name.FirstName,
+                        Id = customer.Id,
+                        FirstName = customer.Name.FirstName,
                         customer.Name.LastName,
                         Document = customer.Document.Number,
                         Email = customer.Email.Address,
                         customer.Phone
-                    });
+                    }, transaction);
 
                 foreach (var address in customer.GetAddresses())
                 {
                     result += _context.Connection.Execute(
-                        @"Insert into Addresses (CustomerId, Type, Street, Number, Complement, District, City, State, Country, ZipCode) 
-                    values (@CustomerId, @Type, @Street, @Number, @Complement, @District, @City, @State, @Country, @ZipCode)",
+                        @"Insert into Address (Id, CustomerId, Type, Street, Number, Complement, District, City, State, Country, ZipCode) 
+                    values (@Id, @CustomerId, @Type, @Street, @Number, @Complement, @District, @City, @State, @Country, @ZipCode)",
                         new
                         {
+                            Id = address.Id,
                             CustomerId = customer.Id,
                             address.Type,
                             address.Street,
@@ -73,15 +101,21 @@ namespace CqrsApi.Infra.StoreContext.Repositories
                             address.State,
                             address.Country,
                             address.ZipCode
-                        });
+                        }, transaction);
                 }
 
+                transaction.Commit();
                 return true;
             }
             catch
-            {
+            {                
                 return false;
             }
+        }
+
+        public GetCustomerQuery UpdateCustomer(Customer customer)
+        {
+            throw new NotImplementedException();
         }
     }
 }

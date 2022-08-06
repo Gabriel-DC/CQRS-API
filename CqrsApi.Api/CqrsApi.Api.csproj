@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CqrsApi.Domain\CqrsApi.Domain.csproj" />
+    <ProjectReference Include="..\CqrsApi.Infra\CqrsApi.Infra.csproj" />
   </ItemGroup>
 
 </Project>

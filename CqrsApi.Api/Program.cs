@@ -1,3 +1,4 @@
+using CqrsApi.Domain.Context.Handlers;
 using CqrsApi.Domain.Context.Repositories;
 using CqrsApi.Domain.Context.Services;
 using CqrsApi.Infra.StoreContext.DataContext;
@@ -8,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 builder.Services
-    .AddScoped<StoreDbContext, StoreDbContext>()    
+    .AddScoped<StoreDbContext, StoreDbContext>()
+    .AddTransient<CreateCustomerHandler, CreateCustomerHandler>()
     .AddTransient<ICustomerRepository, CustomerRepository>()
     .AddTransient<IEmailService, EmailService>();
 

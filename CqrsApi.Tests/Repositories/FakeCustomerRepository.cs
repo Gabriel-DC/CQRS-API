@@ -1,4 +1,4 @@
-using CqrsApi.Domain.Context.Queries;
+using CqrsApi.Domain.Context.Queries.CustomerQueries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
