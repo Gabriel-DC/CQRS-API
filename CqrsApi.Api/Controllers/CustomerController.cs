@@ -33,7 +33,7 @@ namespace CqrsApi.Api.Controllers
         
 
         [HttpGet("{id}/orders")]
-        public List<Order> GetOrders(Guid id)
+        public List<IndexCustomerOrdersQuery> GetOrders(Guid id)
         {
             return default!;
         }
