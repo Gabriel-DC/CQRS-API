@@ -36,6 +36,11 @@ namespace CqrsApi.Infra.StoreContext.Repositories
         public void Delete(Guid id)
         {
             throw new NotImplementedException();
+            //return _context.Connection
+            //    .Execute(
+            //        "Delete from ",
+            //        new { Id = id },
+            //        commandType: CommandType.StoredProcedure);
         }
 
         public IEnumerable<IndexCustomersQuery> GetAll() => _context.Connection
@@ -75,8 +80,8 @@ where c.Id = @Id",
                 values (@Id, @FirstName, @LastName, @Document, @Email, @Phone)",
                     new
                     {
-                        Id = customer.Id,
-                        FirstName = customer.Name.FirstName,
+                        customer.Id,
+                        customer.Name.FirstName,
                         customer.Name.LastName,
                         Document = customer.Document.Number,
                         Email = customer.Email.Address,
@@ -90,7 +95,7 @@ where c.Id = @Id",
                     values (@Id, @CustomerId, @Type, @Street, @Number, @Complement, @District, @City, @State, @Country, @ZipCode)",
                         new
                         {
-                            Id = address.Id,
+                            address.Id,
                             CustomerId = customer.Id,
                             address.Type,
                             address.Street,
