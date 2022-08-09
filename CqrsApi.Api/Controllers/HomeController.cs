@@ -10,6 +10,12 @@ namespace CqrsApi.Api.Controllers
         public ActionResult Get()
         {
             return Ok($"Server is running! Version: {Assembly.GetExecutingAssembly().GetName().Version}");
-        }              
+        }
+
+        [HttpGet("error")]
+        public IActionResult Error()
+        {
+            throw new NotImplementedException("Erro espontâneo");
+        }
     }
 }
