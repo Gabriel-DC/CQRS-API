@@ -11,7 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 
-//builder.Services.AddResponseCompression();
 builder.Services.AddResponseCompression(options =>
 {
     options.EnableForHttps = true;    
@@ -29,6 +28,11 @@ builder.Services
     .AddTransient<ICustomerRepository, CustomerRepository>()
     .AddTransient<IEmailService, EmailService>();
 
+builder.Services.AddSwaggerGen(opt =>
+{
+    opt.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "CQRS API", Version = "v1" });
+});
+
 var app = builder.Build();
 
 if(app.Environment.IsDevelopment())
@@ -36,5 +40,13 @@ if(app.Environment.IsDevelopment())
 
 app.UseMvc();
 app.UseResponseCompression();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "CQRS V1");
+});
 
 app.Run();
