@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace CqrsApi.Domain.Context.Commands.CustomerCommands.Outputs
 {
-    public class CreateCustomerModel : ICommandResult
+    public class CreateCustomerModel
     {
         public CreateCustomerModel()
-        {                
+        {
         }
         
         public CreateCustomerModel(Guid id, string name, string email)

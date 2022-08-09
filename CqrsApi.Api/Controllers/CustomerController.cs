@@ -5,6 +5,7 @@ using CqrsApi.Domain.Context.Handlers;
 using CqrsApi.Domain.Context.Queries.CustomerQueries;
 using CqrsApi.Domain.Context.Repositories;
 using CqrsApi.Domain.Context.ValueObjects;
+using CqrsApi.Shared.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CqrsApi.Api.Controllers
@@ -22,6 +23,7 @@ namespace CqrsApi.Api.Controllers
         }
 
         [HttpGet]
+        //[ResponseCache(Duration = 30)]
         public List<IndexCustomersQuery> Get() => _customerRepository.GetAll()
                 .ToList();
 
@@ -39,12 +41,21 @@ namespace CqrsApi.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(
+        public ICommandResult Post(
             [FromBody] CreateCustomerCommand command
         )
         {
-            var result = _customerHandler.Handle(command);
-            return Ok(result);
+            try
+            {
+                var result = _customerHandler.Handle(command);
+
+                var success = result is not null;
+                return new CommandResult(success, success ? "" : "Ocorreu um erro ao cadastrar um cliente", result!);
+            }
+            catch(Exception ex)
+            {
+                return new CommandResult(false, ex.Message, null!);
+            }
         }
 
         [HttpPut("{id}")]
