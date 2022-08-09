@@ -41,7 +41,32 @@ namespace CqrsApi.Tests.Repositories
 
         public bool CheckEmailExists(string email) => Customers.Any(c => c.Email.Address == email);
 
+        public void Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IndexCustomersQuery> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public GetCustomerQuery GetCustomerByDocument(string document)
+        {
+            throw new NotImplementedException();
+        }
+
+        public GetCustomerQuery GetCustomerById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public CustomerOrdersCountResult GetCustomerOrdersCount(string document)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IndexCustomerOrdersQuery> GetOrders(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -56,6 +81,11 @@ namespace CqrsApi.Tests.Repositories
 
             return false;
                 
+        }
+
+        public GetCustomerQuery UpdateCustomer(Customer customer)
+        {
+            throw new NotImplementedException();
         }
     }
 }

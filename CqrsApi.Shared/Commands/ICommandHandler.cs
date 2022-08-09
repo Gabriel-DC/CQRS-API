@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CqrsApi.Shared.Commands
 {
-    public interface ICommandHandler<T> where T : ICommand
+    public interface ICommandHandler<T, T2> where T : ICommand
     {
-        ICommandResult Handle(T command);
+        T2 Handle(T command);
     }
 }

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace CqrsApi.Domain.Context.Handlers
 {
-    public class CreateCustomerHandler : ICommandHandler<CreateCustomerCommand>
+    public class CreateCustomerHandler : ICommandHandler<CreateCustomerCommand, CreateCustomerModel>
     {
         private readonly ICustomerRepository _customerRepository;
 
@@ -25,7 +25,7 @@ namespace CqrsApi.Domain.Context.Handlers
             _emailService = emailService;
         }
 
-        public ICommandResult Handle(CreateCustomerCommand command)
+        public CreateCustomerModel Handle(CreateCustomerCommand command)
         {
             var validationResult = command?.Validate();
             if(!(validationResult?.IsValid ?? false))
