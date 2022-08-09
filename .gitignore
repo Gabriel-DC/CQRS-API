@@ -411,3 +411,7 @@ sql/
 
 #Settings for Database
 CqrsApi.Infra/StoreContext/DataContext/Settings.cs
+
+
+#Shared App Settings
+CqrsApi.Shared/AppSharedSettings.cs
