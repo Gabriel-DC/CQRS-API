@@ -10,8 +10,8 @@ namespace CqrsApi.Infra.StoreContext.Services
     public class EmailService : IEmailService
     {
         public void Send(string to, string subject, string body)
-        {            
-            //throw new NotImplementedException();
+        {
+            //Send Email
         }
     }
 }

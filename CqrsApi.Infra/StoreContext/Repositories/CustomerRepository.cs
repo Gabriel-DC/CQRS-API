@@ -36,11 +36,6 @@ namespace CqrsApi.Infra.StoreContext.Repositories
         public void Delete(Guid id)
         {
             throw new NotImplementedException();
-            //return _context.Connection
-            //    .Execute(
-            //        "Delete from ",
-            //        new { Id = id },
-            //        commandType: CommandType.StoredProcedure);
         }
 
         public IEnumerable<IndexCustomersQuery> GetAll() => _context.Connection
