@@ -7,8 +7,11 @@ using CqrsApi.Infra.StoreContext.Services;
 using CqrsApi.Shared;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//var teste = builder.Configuration["KKKK"];
 
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);
 
@@ -26,7 +29,7 @@ builder.Services.AddResponseCompression(options =>
 
 builder.Services.Configure<GzipCompressionProviderOptions>(options =>
 {
-    options.Level = CompressionLevel.SmallestSize;
+    options.Level = CompressionLevel.Optimal;
 });
 
 builder.Services
