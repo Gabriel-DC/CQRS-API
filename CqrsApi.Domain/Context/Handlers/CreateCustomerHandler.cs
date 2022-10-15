@@ -43,7 +43,7 @@ namespace CqrsApi.Domain.Context.Handlers
 
             var customer = new Customer(name, document, email, command.Phone);
 
-            if (!customer.Validate().IsValid)
+            if (!customer.IsValid)
                 throw new InvalidOperationException("Ocorreu um erro no cadastro! Verifique os dados e tente novamente");
             
             if(_customerRepository.Save(customer))
