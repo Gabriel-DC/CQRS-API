@@ -38,7 +38,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 
-app.UseElmahIo();
+//app.UseElmahIo();
 
 app.UseMvc();
 app.UseResponseCompression();

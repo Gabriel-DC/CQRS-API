@@ -14,7 +14,7 @@ namespace CqrsApi.Infra.StoreContext.DataContext
 
         public StoreDbContext()
         {
-            Connection = new SqlConnection(Settings.ConnectionString);
+            Connection = new SqlConnection(/*Settings.ConnectionString*/);
             Connection.Open();
         }
         public void Dispose()
