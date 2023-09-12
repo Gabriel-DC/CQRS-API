@@ -5,11 +5,6 @@ using CqrsApi.Domain.Context.Repositories;
 using CqrsApi.Domain.Context.Services;
 using CqrsApi.Domain.Context.ValueObjects;
 using CqrsApi.Shared.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CqrsApi.Domain.Context.Handlers
 {
@@ -28,8 +23,10 @@ namespace CqrsApi.Domain.Context.Handlers
         public CreateCustomerModel Handle(CreateCustomerCommand command)
         {
             var validationResult = command?.Validate();
-            if(!(validationResult?.IsValid ?? false))
-                throw new InvalidOperationException(string.Join('\n', validationResult?.Errors?.Select(e => e.ErrorMessage) ?? null!) ?? "Informações inválidas");
+            if (!(validationResult?.IsValid ?? false))
+                throw new InvalidOperationException(
+                    string.Join('\n', validationResult?.Errors?.Select(e => e.ErrorMessage) ?? null!) ??
+                    "Informações inválidas");
 
             if (_customerRepository.CheckEmailExists(command!.Email))
                 throw new InvalidOperationException("Email já cadastrado");
@@ -44,10 +41,12 @@ namespace CqrsApi.Domain.Context.Handlers
             var customer = new Customer(name, document, email, command.Phone);
 
             if (!customer.Validate().IsValid)
-                throw new InvalidOperationException("Ocorreu um erro no cadastro! Verifique os dados e tente novamente");
-            
-            if(_customerRepository.Save(customer))
-                _emailService.Send(customer.Email.ToString(), "Bem-vindo ao CqrsApi", "Sua conta foi criada com sucesso!");
+                throw new InvalidOperationException(
+                    "Ocorreu um erro no cadastro! Verifique os dados e tente novamente");
+
+            if (_customerRepository.Save(customer))
+                _emailService.Send(customer.Email.ToString(), "Bem-vindo ao CqrsApi",
+                    "Sua conta foi criada com sucesso!");
 
             return new CreateCustomerModel(customer.Id, name.ToString(), email.ToString());
         }

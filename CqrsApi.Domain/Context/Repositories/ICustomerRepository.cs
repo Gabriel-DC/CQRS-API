@@ -1,10 +1,5 @@
 using CqrsApi.Domain.Context.Entities;
 using CqrsApi.Domain.Context.Queries.CustomerQueries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CqrsApi.Domain.Context.Repositories
 {
