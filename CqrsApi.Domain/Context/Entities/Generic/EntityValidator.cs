@@ -1,13 +1,7 @@
 using CqrsApi.Domain.Context.Entities.Interfaces;
 using FluentValidation;
 using FluentValidation.Results;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CqrsApi.Domain.Context.Entities.Generic
 {

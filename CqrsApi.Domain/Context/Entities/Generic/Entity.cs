@@ -15,7 +15,6 @@ namespace CqrsApi.Domain.Context.Entities.Generic
     {
         protected Entity()
         {
-
         }
 
         public ValidationResult Validate<T>()
@@ -25,10 +24,12 @@ namespace CqrsApi.Domain.Context.Entities.Generic
 
             var validatorType = genericType.MakeGenericType(typeArgument)!;
 
-            var myMethod = validatorType.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
+            var myMethod = validatorType
+                .GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
                 .FirstOrDefault(m => m.Name == "Validate")!;
 
-            return (ValidationResult)myMethod!.Invoke(Activator.CreateInstance(typeof(T)), new object[] { this })!;
+            return (ValidationResult)myMethod!.Invoke(
+                Activator.CreateInstance(typeof(T)), new object[] { this })!;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace CqrsApi.Domain.Context.Entities.Generic
         {
             if (typeof(object) != typeof(TypeValidator))
                 _validator = new TypeValidator();
-            
+
             ValidationResult = new ValidationResult();
         }
 
