@@ -1,10 +1,7 @@
 using CqrsApi.Domain.Context.Commands.CustomerCommands.Inputs;
-using CqrsApi.Domain.Context.Commands.CustomerCommands.Outputs;
-using CqrsApi.Domain.Context.Entities;
 using CqrsApi.Domain.Context.Handlers;
 using CqrsApi.Domain.Context.Queries.CustomerQueries;
 using CqrsApi.Domain.Context.Repositories;
-using CqrsApi.Domain.Context.ValueObjects;
 using CqrsApi.Shared.Commands;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,10 +25,10 @@ namespace CqrsApi.Api.Controllers
                 .ToList();
 
         [HttpGet("document/{document}")]
-        public GetCustomerQuery? GetByDocument(string document) => _customerRepository.GetCustomerByDocument(document);
+        public GetCustomerQuery GetByDocument(string document) => _customerRepository.GetCustomerByDocument(document);
 
         [HttpGet("{id}")]
-        public GetCustomerQuery? GetById(Guid id) => _customerRepository.GetCustomerById(id);
+        public GetCustomerQuery GetById(Guid id) => _customerRepository.GetCustomerById(id);
         
 
         [HttpGet("{id}/orders")]
@@ -49,8 +46,8 @@ namespace CqrsApi.Api.Controllers
             {
                 var result = _customerHandler.Handle(command);
 
-                var success = result is not null;
-                return new CommandResult(success, success ? "" : "Ocorreu um erro ao cadastrar um cliente", result!);
+                var success = true;
+                return new CommandResult(success, success ? "" : "Ocorreu um erro ao cadastrar um cliente", result);
             }
             catch(Exception ex)
             {

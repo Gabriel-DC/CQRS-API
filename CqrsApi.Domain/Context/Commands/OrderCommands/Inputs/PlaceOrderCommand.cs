@@ -1,11 +1,6 @@
 using CqrsApi.Shared.Commands;
 using FluentValidation;
 using FluentValidation.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static CqrsApi.Domain.Context.Commands.OrderCommands.Inputs.OrderItemCommand;
 
 namespace CqrsApi.Domain.Context.Commands.OrderCommands.Inputs

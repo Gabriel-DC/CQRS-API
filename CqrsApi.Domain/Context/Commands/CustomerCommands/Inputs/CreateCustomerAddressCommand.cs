@@ -2,11 +2,6 @@ using CqrsApi.Domain.Context.Enums;
 using CqrsApi.Shared.Commands;
 using FluentValidation;
 using FluentValidation.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CqrsApi.Domain.Context.Commands.CustomerCommands.Inputs
 {
